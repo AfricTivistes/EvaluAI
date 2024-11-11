@@ -1,5 +1,5 @@
 import type { Handler } from '@netlify/functions'
-import { getAnswerById, getNotesByAnswerId } from '../../server/lib/nocodb'
+import { getAnswerById, getNotesByAnswerId } from '../../shared/nocodb'
 
 export const handler: Handler = async (event) => {
   // Set CORS headers

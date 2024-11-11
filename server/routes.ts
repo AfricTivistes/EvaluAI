@@ -7,7 +7,7 @@ import {
   getNotesByAnswerId,
   createNote,
   linkNoteToAnswer
-} from "./lib/nocodb";
+} from "../shared/nocodb";
 
 export function registerRoutes(app: Express) {
   // Add cache control middleware for GET requests
