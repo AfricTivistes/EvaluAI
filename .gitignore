@@ -7,3 +7,5 @@ vite.config.ts.*
 dist/
 .env
 package-lock.json
+# Local Netlify folder
+.netlify

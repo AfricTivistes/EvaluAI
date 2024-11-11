@@ -9,11 +9,35 @@ channel = "stable-24_05"
 deploymentTarget = "static"
 build = ["npm", "run", "build"]
 publicDir = "dist/public"
-run = ["sh", "-c", "npm run dev"]
+run = ["sh", "-c", "npx netlify dev --port 8888 --targetPort 5173"]
 
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[[ports]]
+localPort = 5173
+externalPort = 5173
+
+[[ports]]
+localPort = 5174
+externalPort = 3003
+
+[[ports]]
+localPort = 5175
+externalPort = 4200
+
+[[ports]]
+localPort = 8888
+externalPort = 3001
+
+[[ports]]
+localPort = 33007
+externalPort = 3002
+
+[[ports]]
+localPort = 35219
+externalPort = 3000
 
 [packager]
 language = "nodejs"
@@ -40,8 +64,198 @@ author = "agent"
 task = "workflow.run"
 args = "Q&A Management System"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Vite Dev Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Netlify Dev Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Development Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Netlify Development"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Netlify Functions"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Vite Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Netlify Dev"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Vite Dev"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Vite Frontend"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Frontend"
+
 [[workflows.workflow]]
 name = "Q&A Management System"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx netlify dev --port 8888 --targetPort 5173"
+waitForPort = 8888
+
+[[workflows.workflow]]
+name = "Vite Dev Server"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "vite --host 0.0.0.0 --port 5173"
+waitForPort = 5173
+
+[[workflows.workflow]]
+name = "Netlify Dev Server"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "FORCE_COLOR=1 BROWSER=none NODE_ENV=development netlify dev --targetPort 5173 --port 8888"
+waitForPort = 8888
+
+[[workflows.workflow]]
+name = "Development Server"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev & sleep 5 && npm run netlify-dev"
+waitForPort = 8888
+
+[[workflows.workflow]]
+name = "Netlify Development"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run netlify-dev"
+waitForPort = 8888
+
+[[workflows.workflow]]
+name = "Netlify Functions"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "FORCE_COLOR=1 BROWSER=none netlify dev --port 8888"
+waitForPort = 8888
+
+[[workflows.workflow]]
+name = "Vite Server"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
+waitForPort = 5173
+
+[[workflows.workflow]]
+name = "Netlify Dev"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "sleep 10 && BROWSER=none netlify dev --port 8888"
+waitForPort = 8888
+
+[[workflows.workflow]]
+name = "Vite Dev"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "vite --host 0.0.0.0 --port 5173"
+waitForPort = 5173
+
+[[workflows.workflow]]
+name = "Vite Frontend"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "vite --host 0.0.0.0 --port 5174"
+waitForPort = 5174
+
+[[workflows.workflow]]
+name = "Frontend"
 author = "agent"
 
 [workflows.workflow.metadata]

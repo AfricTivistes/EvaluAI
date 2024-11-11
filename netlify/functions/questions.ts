@@ -20,7 +20,7 @@ export const handler: Handler = async (event) => {
 
   try {
     // Get all questions
-    if (event.path === '/.netlify/functions/questions' && !event.pathParameters?.id) {
+    if (event.path === '/.netlify/functions/questions') {
       console.log("Fetching all questions from NocoDB...")
       const allQuestions = await getAllQuestions()
       console.log(`Successfully fetched ${allQuestions.length} questions`)
@@ -33,8 +33,11 @@ export const handler: Handler = async (event) => {
     }
     
     // Get question by id with answers
-    const questionId = event.path.split('/').pop()
-    if (questionId) {
+    // Check if the path matches the pattern /.netlify/functions/questions/{id}
+    const pathParts = event.path.split('/')
+    const questionId = pathParts[pathParts.length - 1]
+    
+    if (pathParts.length === 5 && questionId) {
       console.log(`Fetching question ${questionId} details...`)
       const question = await getQuestionById(questionId)
       
