@@ -9,6 +9,7 @@ channel = "stable-24_05"
 deploymentTarget = "static"
 build = ["npm", "run", "build"]
 publicDir = "dist/public"
+run = ["sh", "-c", "npm run dev"]
 
 [[ports]]
 localPort = 5000
@@ -52,4 +53,4 @@ task = "packager.installForAll"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
-waitForPort = 5000
+waitForPort = 5173
